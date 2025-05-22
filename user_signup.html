@@ -1,0 +1,86 @@
+    <form id="signup-form">
+        <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" required>
+        </div>
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required>
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" required>
+            <i class="fa fa-eye" onclick="togglePassword('password')"></i>
+        </div>
+        <div class="form-group">
+            <label for="confirm_password">Confirm Password</label>
+            <input type="password" id="confirm_password" name="confirm_password" required>
+            <i class="fa fa-eye" onclick="togglePassword('confirm_password')"></i>
+        </div>
+        <button type="submit" class="submit-btn">Sign Up</button>
+    </form>
+    <div class="signin-link">
+        Already have an account? <a href="signin.html">Sign In</a>
+    </div>
+
+    <script>
+        // Password toggle functionality
+        function togglePassword(inputId) {
+            const input = document.getElementById(inputId);
+            const icon = input.nextElementSibling;
+            
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.classList.remove('fa-eye');
+                icon.classList.add('fa-eye-slash');
+            } else {
+                input.type = 'password';
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
+            }
+        }
+
+        document.getElementById('signup-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirm_password').value;
+            
+            if (password !== confirmPassword) {
+                const errorMessage = document.getElementById('error-message');
+                errorMessage.textContent = 'Passwords do not match';
+                errorMessage.style.display = 'block';
+                return;
+            }
+            
+            const submitBtn = this.querySelector('.submit-btn');
+            submitBtn.classList.add('loading');
+            
+            const formData = new FormData(this);
+            
+            fetch('user_signup.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                submitBtn.classList.remove('loading');
+                if (data.status === 'success') {
+                    window.location.href = 'signin.html?registered=true';
+                } else {
+                    const errorMessage = document.getElementById('error-message');
+                    errorMessage.textContent = data.message || 'Error creating account';
+                    errorMessage.style.display = 'block';
+                }
+            })
+            .catch(error => {
+                submitBtn.classList.remove('loading');
+                console.error('Error:', error);
+                const errorMessage = document.getElementById('error-message');
+                errorMessage.textContent = 'An error occurred. Please try again.';
+                errorMessage.style.display = 'block';
+            });
+        });
+    </script>
+</body>
+</html> 

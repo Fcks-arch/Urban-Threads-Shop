@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - Urban Threads</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        .checkout-container {
+            max-width: 1200px;
+            margin: 100px auto;
+            padding: 20px;
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 30px;
+        }
+
+        .checkout-form {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+
+        .order-summary {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 100px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .payment-methods {
+            margin-top: 30px;
+        }
+
+        .payment-method {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .payment-method:hover {
+            border-color: var(--primary-color);
+        }
+
+        .payment-method.selected {
+            border-color: var(--primary-color);
+            background: rgba(255, 60, 120, 0.1);
+        }
+
+        .payment-method img {
+            width: 40px;
+            height: 40px;
+            margin-right: 15px;
+        }
+
+        .payment-details {
+            margin-top: 20px;
+            display: none;
+        }
+
+        .payment-details.active {
+            display: block;
+        }
+
+        .order-items {
+            margin-bottom: 20px;
+        }
+
+        .order-item {
+            display: flex;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .order-item img {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            margin-right: 15px;
+            border-radius: 5px;
+        }
+
+        .order-total {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 2px solid #eee;
+        }
+
+        .order-total-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .place-order-btn {
+            width: 100%;
+            padding: 15px;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .place-order-btn:hover {
+            background: #ff1f5a;
+        }
+
+        .track-order-btn {
+            width: 100%;
+            padding: 15px;
+            background: #333;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+        }
+
+        .track-order-btn:hover {
+            background: #444;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-container">
+            <div class="logo">
+                <h1>URBAN THREADS</h1>
+            </div>
+            <ul class="menu-items">
+                <li><a href="home.html">Home</a></li>
+                <li><a href="shop2.html">Shop</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="checkout-container">
+        <div class="checkout-form">
+            <h2>Checkout Information</h2>
+            <form id="checkoutForm">
+                <div class="form-group">
+                    <label for="fullName">Full Name</label>
+                    <input type="text" id="fullName" name="fullName" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" id="phone" name="phone" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="address">Delivery Address</label>
+                    <textarea id="address" name="address" rows="3" required></textarea>
+                </div>
+
+                <div class="payment-methods">
+                    <h3>Payment Method</h3>
+                    <div class="payment-method" data-method="gcash">
+                        <img src="images/gcash.png" alt="GCash">
+                        <span>GCash</span>
+                    </div>
+                    <div class="payment-method" data-method="maya">
+                        <img src="images/maya.png" alt="Maya">
+                        <span>Maya</span>
+                    </div>
+                    <div class="payment-method" data-method="paypal">
+                        <img src="images/paypal.png" alt="PayPal">
+                        <span>PayPal</span>
+                    </div>
+                    <div class="payment-method" data-method="cod">
+                        <img src="images/cod.png" alt="Cash on Delivery">
+                        <span>Cash on Delivery</span>
+                    </div>
+                </div>
+
+                <div id="gcashDetails" class="payment-details">
+                    <div class="form-group">
+                        <label for="gcashNumber">GCash Number</label>
+                        <input type="tel" id="gcashNumber" name="gcashNumber">
+                    </div>
+                </div>
+
+                <div id="mayaDetails" class="payment-details">
+                    <div class="form-group">
+                        <label for="mayaNumber">Maya Number</label>
+                        <input type="tel" id="mayaNumber" name="mayaNumber">
+                    </div>
+                </div>
+
+                <div id="paypalDetails" class="payment-details">
+                    <div class="form-group">
+                        <label for="paypalEmail">PayPal Email</label>
+                        <input type="email" id="paypalEmail" name="paypalEmail">
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div class="order-summary">
+            <h2>Order Summary</h2>
+            <div id="orderItems" class="order-items">
+                <!-- Order items will be dynamically added here -->
+            </div>
+            <div class="order-total">
+                <div class="order-total-row">
+                    <span>Subtotal:</span>
+                    <span id="subtotal">₱0.00</span>
+                </div>
+                <div class="order-total-row">
+                    <span>Shipping:</span>
+                    <span id="shipping">₱100.00</span>
+                </div>
+                <div class="order-total-row">
+                    <span>Total:</span>
+                    <span id="total">₱0.00</span>
+                </div>
+            </div>
+            <button class="place-order-btn" onclick="placeOrder()">Place Order</button>
+            <button class="track-order-btn" onclick="trackOrder()">Track Order</button>
+        </div>
+    </div>
+
+    <div id="orderSuccessMessage">
+        <h2>Order Placed Successfully!</h2>
+        <p>Your Order Number is: <strong id="displayedOrderNumber"></strong></p>
+        <p>Please keep this number to track your order.</p>
+        <div style="margin-top: 20px;">
+            <button class="place-order-btn" onclick="window.location.href='shop2.html'">Continue Shopping</button>
+             <button class="track-order-btn" onclick="window.location.href='trackorder.html'">Track Your Order</button>
+        </div>
+    </div>
+
+    <script>
+        // Load cart items on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            loadCartItems();
+            setupPaymentMethods();
+        });
+
+        function loadCartItems() {
+            fetch('fetchcart.php')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'success') {
+                        const orderItemsContainer = document.getElementById('orderItems');
+                        let subtotal = 0;
+
+                        if (!data.items || data.items.length === 0) {
+                            orderItemsContainer.innerHTML = '<p>Your cart is empty</p>';
+                            return;
+                        }
+
+                        orderItemsContainer.innerHTML = data.items.map(item => {
+                            subtotal += parseFloat(item.price) * item.quantity;
+                            return `
+                                <div class="order-item">
+                                    <img src="${item.image_url}" alt="${item.product_name}">
+                                    <div>
+                                        <h4>${item.product_name}</h4>
+                                        <p>Quantity: ${item.quantity}</p>
+                                        <p>₱${parseFloat(item.price).toFixed(2)}</p>
+                                    </div>
+                                </div>
+                            `;
+                        }).join('');
+
+                        const shipping = 100;
+                        const total = subtotal + shipping;
+
+                        document.getElementById('subtotal').textContent = `₱${subtotal.toFixed(2)}`;
+                        document.getElementById('shipping').textContent = `₱${shipping.toFixed(2)}`;
+                        document.getElementById('total').textContent = `₱${total.toFixed(2)}`;
+                    }
+                })
+                .catch(error => {
+                    console.error('Error loading cart:', error);
+                    showNotification('Error loading cart items', 'error');
+                });
+        }
+
+        function setupPaymentMethods() {
+            const paymentMethods = document.querySelectorAll('.payment-method');
+            paymentMethods.forEach(method => {
+                method.addEventListener('click', function() {
+                    // Remove selected class from all methods
+                    paymentMethods.forEach(m => m.classList.remove('selected'));
+                    // Add selected class to clicked method
+                    this.classList.add('selected');
+
+                    // Hide all payment details
+                    document.querySelectorAll('.payment-details').forEach(detail => {
+                        detail.classList.remove('active');
+                    });
+
+                    // Show selected payment details
+                    const methodType = this.dataset.method;
+                    const detailsElement = document.getElementById(`${methodType}Details`);
+                    if (detailsElement) {
+                        detailsElement.classList.add('active');
+                    }
+                });
+            });
+        }
+
+        function placeOrder() {
+            const form = document.getElementById('checkoutForm');
+            const selectedPayment = document.querySelector('.payment-method.selected');
+
+            if (!form.checkValidity()) {
+                form.reportValidity();
+                return;
+            }
+
+            if (!selectedPayment) {
+                showNotification('Please select a payment method', 'error');
+                return;
+            }
+
+            const formData = new FormData(form);
+            formData.append('payment_method', selectedPayment.dataset.method);
+            formData.append('total_amount', document.getElementById('total').textContent.replace('₱', ''));
+
+            fetch('placeorder.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    // Hide the checkout form and order summary
+                    document.querySelector('.checkout-form').style.display = 'none';
+                    document.querySelector('.order-summary').style.display = 'none';
+
+                    // Display the order success message and number
+                    document.getElementById('displayedOrderNumber').textContent = data.order_number;
+
+                    showNotification('Order placed successfully!');
+
+                    // Add background class to body for centering and background image
+                    document.body.classList.add('order-success-background');
+
+                    // No immediate redirect
+                    // setTimeout(() => {
+                    //     window.location.href = 'shop2.html';
+                    // }, 2000);
+                } else {
+                    showNotification(data.message || 'Error placing order', 'error');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                showNotification('Error connecting to server', 'error');
+            });
+        }
+
+        function trackOrder() {
+            window.location.href = 'trackorder.html';
+        }
+
+        function showNotification(message, type = 'success') {
+            const notification = document.createElement('div');
+            notification.className = 'notification';
+            notification.innerHTML = message;
+
+            if (type === 'error') {
+                notification.style.background = 'rgba(255, 68, 68, 0.9)';
+            } else {
+                notification.style.background = 'rgba(255, 60, 120, 0.9)';
+            }
+
+            document.body.appendChild(notification);
+            notification.offsetHeight;
+            notification.classList.add('active');
+
+            setTimeout(() => {
+                notification.classList.remove('active');
+                setTimeout(() => {
+                    notification.remove();
+                }, 300);
+            }, 2000);
+        }
+    </script>
+</body>
+</html> 

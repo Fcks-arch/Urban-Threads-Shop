@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Track Order - Urban Threads</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        .tracking-container {
+            max-width: 1200px;
+            margin: 100px auto;
+            padding: 20px;
+        }
+
+        .tracking-form {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+
+        .tracking-form h2 {
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .track-btn {
+            width: 100%;
+            padding: 15px;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .track-btn:hover {
+            background: #ff1f5a;
+        }
+
+        .order-details {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            display: none;
+        }
+
+        .order-details.active {
+            display: block;
+        }
+
+        .order-info {
+            margin-bottom: 30px;
+        }
+
+        .order-info h3 {
+            margin-bottom: 15px;
+            color: var(--primary-color);
+        }
+
+        .order-info p {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+
+        .tracking-timeline {
+            position: relative;
+            padding: 20px 0;
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-left: 50px;
+            margin-bottom: 30px;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 15px;
+            top: 0;
+            bottom: -30px;
+            width: 2px;
+            background: #ddd;
+        }
+
+        .timeline-item:last-child::before {
+            display: none;
+        }
+
+        .timeline-item.active::before {
+            background: var(--primary-color);
+        }
+
+        .timeline-icon {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: #ddd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        .timeline-item.active .timeline-icon {
+            background: var(--primary-color);
+        }
+
+        .timeline-content {
+            background: #f9f9f9;
+            padding: 15px;
+            border-radius: 5px;
+        }
+
+        .timeline-content h4 {
+            margin: 0 0 5px 0;
+            color: #333;
+        }
+
+        .timeline-content p {
+            margin: 0;
+            color: #666;
+            font-size: 14px;
+        }
+
+        .order-items {
+            margin-top: 30px;
+        }
+
+        .order-item {
+            display: flex;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .order-item img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            margin-right: 20px;
+            border-radius: 5px;
+        }
+
+        .order-item-details h4 {
+            margin: 0 0 5px 0;
+        }
+
+        .order-item-details p {
+            margin: 0;
+            color: #666;
+        }
+
+        .no-orders {
+            text-align: center;
+            padding: 40px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-container">
+            <div class="logo">
+                <h1>URBAN THREADS</h1>
+            </div>
+            <ul class="menu-items">
+                <li><a href="home.html">Home</a></li>
+                <li><a href="shop2.html">Shop</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="tracking-container">
+        <div class="tracking-form">
+            <h2>Track Your Order</h2>
+            <div class="form-group">
+                <label for="orderNumber">Order Number</label>
+                <input type="text" id="orderNumber" placeholder="Enter your order number">
+            </div>
+            <button class="track-btn" onclick="trackOrder()">Track Order</button>
+        </div>
+
+        <div id="orderDetails" class="order-details">
+            <div class="order-info">
+                <h3>Order Information</h3>
+                <p><strong>Order Number:</strong> <span id="displayOrderNumber"></span></p>
+                <p><strong>Order Date:</strong> <span id="orderDate"></span></p>
+                <p><strong>Status:</strong> <span id="orderStatus"></span></p>
+                <p><strong>Payment Method:</strong> <span id="paymentMethod"></span></p>
+                <p><strong>Total Amount:</strong> <span id="totalAmount"></span></p>
+            </div>
+
+            <div class="tracking-timeline">
+                <div class="timeline-item active">
+                    <div class="timeline-icon">
+                        <i class="fas fa-shopping-cart"></i>
+                    </div>
+                    <div class="timeline-content">
+                        <h4>Order Placed</h4>
+                        <p>Your order has been received</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-icon">
+                        <i class="fas fa-check"></i>
+                    </div>
+                    <div class="timeline-content">
+                        <h4>Order Confirmed</h4>
+                        <p>Your order has been confirmed</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-icon">
+                        <i class="fas fa-box"></i>
+                    </div>
+                    <div class="timeline-content">
+                        <h4>Processing</h4>
+                        <p>Your order is being processed</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-icon">
+                        <i class="fas fa-truck"></i>
+                    </div>
+                    <div class="timeline-content">
+                        <h4>Shipped</h4>
+                        <p>Your order is on the way</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-icon">
+                        <i class="fas fa-home"></i>
+                    </div>
+                    <div class="timeline-content">
+                        <h4>Delivered</h4>
+                        <p>Your order has been delivered</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="order-items">
+                <h3>Order Items</h3>
+                <div id="orderItemsList">
+                      
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function trackOrder() {
+            const orderNumber = document.getElementById('orderNumber').value;
+            if (!orderNumber) {
+                showNotification('Please enter an order number', 'error');
+                return;
+            }
+
+            fetch('trackorder.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: `order_number=${orderNumber}`
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    displayOrderDetails(data.order);
+                    updateTrackingTimeline(data.order.status);
+                } else {
+                    showNotification(data.message || 'Order not found', 'error');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                showNotification('Error connecting to server', 'error');
+            });
+        }
+
+        function displayOrderDetails(order) {
+            document.getElementById('displayOrderNumber').textContent = order.order_number;
+            document.getElementById('orderDate').textContent = order.order_date;
+            document.getElementById('orderStatus').textContent = order.status;
+            document.getElementById('paymentMethod').textContent = order.payment_method;
+            document.getElementById('totalAmount').textContent = `₱${parseFloat(order.total_amount).toFixed(2)}`;
+
+            const orderItemsList = document.getElementById('orderItemsList');
+            orderItemsList.innerHTML = order.items.map(item => `
+                <div class="order-item">
+                    <img src="${item.image_url}" alt="${item.product_name}">
+                    <div class="order-item-details">
+                        <h4>${item.product_name}</h4>
+                        <p>Quantity: ${item.quantity}</p>
+                        <p>Price: ₱${parseFloat(item.price).toFixed(2)}</p>
+                    </div>
+                </div>
+            `).join('');
+
+            document.getElementById('orderDetails').classList.add('active');
+        }
+
+        function updateTrackingTimeline(status) {
+            const timelineItems = document.querySelectorAll('.timeline-item');
+            const statusOrder = ['Order Placed', 'Order Confirmed', 'Processing', 'Shipped', 'Delivered'];
+            const currentIndex = statusOrder.indexOf(status);
+
+            timelineItems.forEach((item, index) => {
+                if (index <= currentIndex) {
+                    item.classList.add('active');
+                } else {
+                    item.classList.remove('active');
+                }
+            });
+        }
+
+        function showNotification(message, type = 'success') {
+            const notification = document.createElement('div');
+            notification.className = 'notification';
+            notification.innerHTML = message;
+
+            if (type === 'error') {
+                notification.style.background = 'rgba(255, 68, 68, 0.9)';
+            } else {
+                notification.style.background = 'rgba(255, 60, 120, 0.9)';
+            }
+
+            document.body.appendChild(notification);
+            notification.offsetHeight;
+            notification.classList.add('active');
+
+            setTimeout(() => {
+                notification.classList.remove('active');
+                setTimeout(() => {
+                    notification.remove();
+                }, 300);
+            }, 2000);
+        }
+    </script>
+</body>
+</html> 

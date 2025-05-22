@@ -1,0 +1,248 @@
+/* Admin Authentication Page Styles (Login and Signup) */
+
+/* Basic page layout and background */
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: url('images/bg2.jpg') no-repeat center center fixed;
+    background-size: cover;
+    position: relative;
+    overflow: hidden;
+    font-family: 'Poppins', Arial, sans-serif;
+}
+
+body::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6); /* Slightly darker overlay */
+    z-index: 0;
+}
+
+.container {
+    background: rgba(255, 255, 255, 0.98); /* Almost opaque white background */
+    padding: 3rem; /* Increased padding */
+    border-radius: 12px; /* Slightly softer corners */
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1); /* Softer shadow */
+    width: 100%;
+    max-width: 400px; /* Slightly narrower container */
+    backdrop-filter: blur(5px); /* Reduced blur */
+    z-index: 1;
+    margin: auto;
+    transition: all 0.3s ease;
+}
+
+.container:hover {
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15); /* Slightly more pronounced hover shadow */
+}
+
+.logo {
+    text-align: center;
+    margin-bottom: 2.5rem; /* Increased margin */
+}
+
+.logo h1 {
+    color: #333; /* Darker text */
+    font-size: 2.2rem; /* Slightly larger font */
+    font-weight: 600; /* Slightly less bold */
+    letter-spacing: 1px; /* Reduced letter spacing */
+    margin-bottom: 0.5rem;
+}
+
+.logo p {
+    color: #666;
+    font-size: 0.9rem;
+}
+
+/* Form elements */
+.form-group {
+    margin-bottom: 1.8rem; /* Increased margin */
+    position: relative;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.6rem; /* Increased margin */
+    color: #555; /* Slightly softer label color */
+    font-size: 0.95rem; /* Slightly larger label font */
+    font-weight: 500;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 1rem; /* Increased padding */
+    border: 1px solid #ddd; /* Lighter border */
+    border-radius: 8px; /* Consistent border radius */
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    background: #f9f9f9; /* Slightly off-white background */
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    outline: none;
+    border-color: #555; /* Darker border on focus */
+    box-shadow: 0 0 0 2px rgba(85, 85, 85, 0.1); /* Subtle focus shadow */
+    background: #fff; /* White background on focus */
+}
+
+.form-group i {
+    position: absolute;
+    right: 1rem;
+    top: 3.1rem; /* Adjusted vertical position */
+    color: #999; /* Softer icon color */
+}
+
+/* Submit button */
+.submit-btn {
+    width: 100%;
+    padding: 1.1rem; /* Increased padding */
+    background: #333; /* Dark background */
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem; /* Slightly larger font */
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.submit-btn:hover {
+    background: #555; /* Darker hover background */
+    transform: translateY(-2px);
+}
+
+.submit-btn:active {
+    transform: translateY(0);
+}
+
+/* Link styles */
+.signup-link,
+.signin-link {
+    text-align: center;
+    margin-top: 2rem; /* Increased margin */
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.signup-link a,
+.signin-link a {
+    color: #555; /* Darker link color */
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.signup-link a:hover,
+.signin-link a:hover {
+    color: #333; /* Even darker on hover */
+    text-decoration: underline;
+}
+
+/* Error and Success Messages */
+.error-message,
+.success-message {
+    text-align: center;
+    margin-bottom: 1.5rem; /* Increased margin */
+    padding: 1rem; /* Increased padding */
+    border-radius: 8px;
+    animation: fadeIn 0.3s ease;
+    font-size: 0.95rem;
+}
+
+.error-message {
+    color: #d32f2f; /* Material Design Red */
+    background: rgba(211, 47, 47, 0.1); /* Light red background */
+    border: 1px solid rgba(211, 47, 47, 0.2); /* Subtle red border */
+}
+
+.success-message {
+    color: #388e3c; /* Material Design Green */
+    background: rgba(56, 142, 60, 0.1); /* Light green background */
+    border: 1px solid rgba(56, 142, 60, 0.2); /* Subtle green border */
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Password toggle */
+.password-toggle {
+    position: absolute;
+    right: 1rem;
+    top: 50%; /* Center vertically relative to input */
+    transform: translateY(-50%); /* Adjust for icon height */
+    cursor: pointer;
+    color: #999; /* Softer icon color */
+}
+
+/* Loading animation for submit button */
+.submit-btn.loading {
+    background: #555; /* Darker background when loading */
+    pointer-events: none;
+}
+
+.submit-btn.loading::after {
+    content: "";
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    top: 50%;
+    left: 50%;
+    margin: -10px 0 0 -10px;
+    border: 3px solid rgba(255,255,255,0.3); /* Thicker border */
+    border-top-color: #fff;
+    border-radius: 50%;
+    animation: rotate 0.8s linear infinite;
+}
+
+@keyframes rotate {
+    to { transform: rotate(360deg); }
+}
+
+.video-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
+}
+
+/* Media query for smaller screens */
+@media (max-width: 768px) {
+    body {
+        background-attachment: scroll;
+    }
+
+    .container {
+        padding: 2rem;
+        max-width: 90%;
+    }
+
+    .logo h1 {
+        font-size: 2rem;
+    }
+
+    .form-group input,
+    .form-group select,
+    .submit-btn {
+        padding: 1rem;
+        font-size: 1rem;
+    }
+
+    .password-toggle {
+         top: 3.1rem; /* Adjust vertical position */
+         transform: none; /* Remove translate Y */
+    }
+} 
