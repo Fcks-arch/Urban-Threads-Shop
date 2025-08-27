@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Track Order - Urban Threads</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        .tracking-container {
+            max-width: 1200px;
+            margin: 100px auto;
+            padding: 20px;
+        }
+
+        .tracking-form {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+
+        .tracking-form h2 {
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .track-btn {
+            width: 100%;
+            padding: 15px;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .track-btn:hover {
+            background: #ff1f5a;
+        }
+
+        .order-details {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            display: none;
+        }
+
+        .order-details.active {
+            display: block;
+        }
+
+        .order-info {
+            margin-bottom: 30px;
+        }
+
+        .order-info h3 {
+            margin-bottom: 15px;
+            color: var(--primary-color);
+        }
+
+        .order-info p {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+
+        .tracking-timeline {
+            position: relative;
+            padding: 20px 0;
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-left: 50px;
+            margin-bottom: 30px;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 15px;
+            top: 0;
+            bottom: -30px;
+            width: 2px;
+            background: #ddd;
+        }
+
+        .timeline-item:last-child::before {
+            display: none;
+        }
+
+        .timeline-item.active::before {
+            background: var(--primary-color);
+        }
+
+        .timeline-icon {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: #ddd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        .timeline-item.active .timeline-icon {
+            background: var(--primary-color);
+        }
+
+        .timeline-content {
+            background: #f9f9f9;
+            padding: 15px;
+            border-radius: 5px;
+        }
+
+        .timeline-content h4 {
+            margin: 0 0 5px 0;
+            color: #333;
+        }
+
+        .timeline-content p {
+            margin: 0;
+            color: #666;
+            font-size: 14px;
+        }
+
+        .order-items {
+            margin-top: 30px;
+        }
+
+        .order-item {
+            display: flex;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .order-item img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            margin-right: 20px;
+            border-radius: 5px;
+        }
+
+        .order-item-details h4 {
+            margin: 0 0 5px 0;
+        }
+
+        .order-item-details p {
+            margin: 0;
+            color: #666;
+        }
+
+        .no-orders {
+            text-align: center;
+            padding: 40px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-container">
+            <div class="logo">
+                <h1>URBAN THREADS</h1>
+            </div>
+            <ul class="menu-items">
+                <li><a href="home.html">Home</a></li>
+                <li><a href="shop2.html">Shop</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="tracking-container">
+        <div class="tracking-form">
+            <h2>Track Your Order</h2>
+            <div class="form-group">
+                <label for="orderNumber">Order Number</label>
+                <input type="text" id="orderNumber" placeholder="Enter your order number">
+            </div>
+            <button class="track-btn" onclick="trackOrder()">Track Order</button>
+        </div>
+
+        <div id="orderDetails" class="order-details">
+            <div class="order-info">
+                <h3>Order Information</h3>
+                <p><strong>Order Number:</strong> <span id="displayOrderNumber"></span></p>
+                <p><strong>Order Date:</strong> <span id="orderDate"></span></p>
+                <p><strong>Status:</strong> <span id="orderStatus"></span></p>
+                <p><strong>Payment Method:</strong> <span id="paymentMethod"></span></p>
+                <p><strong>Total Amount:</strong> <span id="totalAmount"></span></p>
+                <p><strong>Tracking Number:</strong> <span id="trackingNumber"></span></p>
+            </div>
+
+            <div class="tracking-timeline">
+                <div class="timeline-item active">
+                    <div class="timeline-icon">
+                        <i class="fas fa-shopping-cart"></i>
+                    </div>
+                    <div class="timeline-content">
+                        <h4>Order Placed</h4>
+                        <p>Your order has been received</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-icon">
+                        <i class="fas fa-check"></i>
+                    </div>
+                    <div class="timeline-content">
+                        <h4>Order Confirmed</h4>
+                        <p>Your order has been confirmed</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-icon">
+                        <i class="fas fa-box"></i>
+                    </div>
+                    <div class="timeline-content">
+                        <h4>Processing</h4>
+                        <p>Your order is being processed</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-icon">
+                        <i class="fas fa-truck"></i>
+                    </div>
+                    <div class="timeline-content">
+                        <h4>Shipped</h4>
+                        <p>Your order is on the way</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-icon">
+                        <i class="fas fa-home"></i>
+                    </div>
+                    <div class="timeline-content">
+                        <h4>Delivered</h4>
+                        <p>Your order has been delivered</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="order-items">
+                <h3>Order Items</h3>
+                <div id="orderItemsList">
+                      
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function trackOrder() {
+            const orderNumberInput = document.getElementById('orderNumber');
+            const orderNumber = orderNumberInput.value.trim(); // Trim whitespace
+            
+            // Clear previous results
+            document.getElementById('orderDetails').classList.remove('active');
+            document.getElementById('orderItemsList').innerHTML = '';
+             document.querySelector('.tracking-timeline').style.display = 'none'; // Hide timeline initially
+
+            // Determine whether to fetch pending requests or a specific order
+            let fetchUrl = 'trackorder.php';
+            let method = 'POST';
+            let body = `order_number=${encodeURIComponent(orderNumber)}`;
+
+            if (orderNumber === '') {
+                // Fetch pending requests if no order number is entered
+                fetchUrl = 'trackorder.php'; // Still calling the same script
+                method = 'POST'; // Use POST even for fetching pending to handle session
+                body = ''; // No order number in the body
+            }
+
+            fetch(fetchUrl, {
+                method: method,
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: body
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    if (data.order) {
+                        // Display specific order details
+                        displayOrderDetails(data.order);
+                        updateTrackingTimeline(data.order.status);
+                         document.querySelector('.tracking-timeline').style.display = 'block'; // Show timeline
+                    } else if (data.pending_requests) {
+                         // Display pending checkout requests
+                         displayPendingRequests(data.pending_requests);
+                         document.querySelector('.tracking-timeline').style.display = 'none'; // Hide timeline for pending
+                    }
+                } else {
+                    showNotification(data.message || 'Order not found', 'error');
+                     document.getElementById('orderDetails').classList.remove('active'); // Hide details on error
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                showNotification('Error connecting to server or parsing response.', 'error');
+                 document.getElementById('orderDetails').classList.remove('active'); // Hide details on error
+            });
+        }
+
+        function displayOrderDetails(order) {
+            document.getElementById('displayOrderNumber').textContent = order.order_number;
+            document.getElementById('orderDate').textContent = order.order_date;
+            document.getElementById('orderStatus').textContent = order.status;
+            document.getElementById('paymentMethod').textContent = order.payment_method;
+            document.getElementById('totalAmount').textContent = `₱${parseFloat(order.total_amount).toFixed(2)}`;
+
+            // Display tracking number if available
+            const trackingNumberElement = document.getElementById('trackingNumber'); // Need to add this element in HTML
+             if (trackingNumberElement) {
+                 if (order.tracking_number) {
+                    trackingNumberElement.textContent = order.tracking_number;
+                     trackingNumberElement.parentElement.style.display = 'block'; // Show tracking number row
+                 } else {
+                    trackingNumberElement.parentElement.style.display = 'none'; // Hide tracking number row
+                 }
+             }
+
+            const orderItemsList = document.getElementById('orderItemsList');
+            orderItemsList.innerHTML = order.items.map(item => `
+                <div class="order-item">
+                    <img src="${item.image_url}" alt="${item.product_name}">
+                    <div class="order-item-details">
+                        <h4>${item.product_name}</h4>
+                        <p>Quantity: ${item.quantity}</p>
+                        <p>Price: ₱${parseFloat(item.price).toFixed(2)}</p>
+                    </div>
+                </div>
+            `).join('');
+
+            document.getElementById('orderDetails').classList.add('active');
+        }
+
+        // New function to display pending checkout requests
+        function displayPendingRequests(pendingItems) {
+            const orderDetailsDiv = document.getElementById('orderDetails');
+            orderDetailsDiv.classList.add('active'); // Show the details container
+
+            const orderInfoDiv = orderDetailsDiv.querySelector('.order-info');
+            const orderItemsList = document.getElementById('orderItemsList');
+
+            // Update order info section to show it's pending
+            orderInfoDiv.innerHTML = `
+                <h3>Pending/Approved Checkout Requests</h3>
+                <p>Review the status of your checkout requests below.</p>
+            `;
+
+             // Hide tracking number, order date, total amount, etc. for pending requests
+             // We could also dynamically remove elements, but hiding might be simpler for now
+             
+            orderItemsList.innerHTML = pendingItems.map(item => `
+                <div class="order-item">
+                    <img src="${item.image_url}" alt="${item.product_name}">
+                    <div class="order-item-details">
+                        <h4>${item.product_name}</h4>
+                        <p>Quantity: ${item.quantity}</p>
+                        <p>Price: ₱${parseFloat(item.price).toFixed(2)}</p>
+                        <p>Status: <strong>${item.status}</strong></p>
+                        ${item.status === 'approved' && item.tracking_number ? 
+                           `<p>Tracking Number: <strong>${item.tracking_number}</strong></p>` : ''}
+                    </div>
+                </div>
+            `).join('');
+
+             // Potentially add a message if there are no pending items after a search
+             if (pendingItems.length === 0 && document.getElementById('orderNumber').value.trim() === '') {
+                 orderInfoDiv.innerHTML = '<h3>Pending/Approved Checkout Requests</h3><p>No pending or approved checkout requests found.</p>';
+                 orderItemsList.innerHTML = '';
+             }
+             
+
+        }
+
+        function updateTrackingTimeline(status) {
+            const timelineItems = document.querySelectorAll('.tracking-timeline .timeline-item');
+            const statusOrder = ['Order Placed', 'Order Confirmed', 'Processing', 'Shipped', 'Delivered'];
+            // Map your database statuses to these timeline points
+            // For example, 'pending_checkout' -> 'Order Placed', 'approved' -> 'Order Confirmed', etc.
+            // This requires defining the status flow clearly.
+            
+            // For now, a basic mapping based on the provided statuses:
+            let currentTimelineIndex = -1;
+            if (status === 'pending_checkout') currentTimelineIndex = 0; // Map to Order Placed
+            else if (status === 'approved') currentTimelineIndex = 1; // Map to Order Confirmed
+            // Add more mappings for 'processing', 'shipped', 'delivered' if you use them
+            
+            timelineItems.forEach((item, index) => {
+                if (index <= currentTimelineIndex) {
+                    item.classList.add('active');
+                } else {
+                    item.classList.remove('active');
+                }
+            });
+        }
+
+        function showNotification(message, type = 'success') {
+            const notification = document.createElement('div');
+            notification.className = 'notification';
+            notification.innerHTML = message;
+
+            if (type === 'error') {
+                notification.style.background = 'rgba(255, 68, 68, 0.9)';
+            } else {
+                notification.style.background = 'rgba(255, 60, 120, 0.9)';
+            }
+
+            document.body.appendChild(notification);
+            notification.offsetHeight;
+            notification.classList.add('active');
+
+            setTimeout(() => {
+                notification.classList.remove('active');
+                setTimeout(() => {
+                    notification.remove();
+                }, 300);
+            }, 2000);
+        }
+
+         // Initial load: fetch pending requests when the page loads with no order number
+         document.addEventListener('DOMContentLoaded', function() {
+             // Trigger the trackOrder function on load to fetch pending requests
+             // Ensure the input field is empty on load for this to work as intended
+             document.getElementById('orderNumber').value = ''; // Clear the input on load
+             trackOrder();
+         });
+
+    </script>
+</body>
+</html> 

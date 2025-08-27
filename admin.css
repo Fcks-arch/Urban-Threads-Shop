@@ -1,0 +1,226 @@
+
+body {
+    display: flex; /* Use flexbox for layout */
+    flex-direction: column; /* Stack children vertically */
+    min-height: 100vh; /* Minimum height of the viewport */
+    font-family: 'Arial', sans-serif;
+    background-color: #f8f9fa;
+    margin: 0;
+}
+
+.admin-wrapper {
+    display: flex;
+    flex-grow: 1; /* This div will take up the available space, pushing the footer down */
+}   
+
+.admin-sidebar {
+    width: 250px;
+    background-color: #343a40;
+    color: white;
+    padding: 20px;
+    min-height: 100vh; /* Full height sidebar */
+    position: fixed; /* Fixed position */
+    top: 0;
+    left: 0;
+    overflow-y: auto;
+    display: flex; /* Use flexbox for sidebar content */
+    flex-direction: column; /* Stack sidebar items */
+}
+
+.admin-sidebar h2 {
+    color: white;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.admin-sidebar .nav-link {
+    color: #ced4da;
+    margin-bottom: 10px;
+}
+
+.admin-sidebar .nav-link:hover {
+    color: #ffffff;
+    background-color: #495057;
+    border-radius: 5px;
+}
+
+.admin-main-content {
+    margin-left: 250px;
+    padding: 20px;
+    flex-grow: 1;
+}
+
+.admin-footer {
+    /* Removed margin-left and adjusted width for full width */
+    padding: 20px;
+    text-align: center;
+    color: #6c757d;
+    border-top: 1px solid #e9ecef;
+    width: 100%; /* Footer takes full width */
+    /* Removed position properties as flexbox handles positioning */
+}
+
+@media (max-width: 768px) {
+    .admin-sidebar {
+        width: 100%;
+        min-height: auto;
+        position: relative;
+        padding: 10px;
+        flex-direction: row; /* Sidebar items in a row on small screens */
+        justify-content: space-around; /* Distribute space */
+        height: auto; /* Auto height on small screens */
+    }
+
+     .admin-sidebar h2 {
+        margin-bottom: 10px; /* Adjust margin */
+    }
+
+     .admin-sidebar .nav-link {
+        margin-bottom: 0; /* Remove bottom margin */
+    }
+
+    .admin-main-content {
+        margin-left: 0;
+    }
+
+    .admin-footer {
+        margin-left: 0;
+        width: 100%;
+    }
+}
+
+/* Table Styles */
+.admin-main-content table {
+    margin-top: 20px;
+    border-collapse: collapse;
+    width: 100%;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.admin-main-content table th,
+.admin-main-content table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.admin-main-content table th {
+    background-color: #f2f2f2; /* Light grey header background */
+    color: #333;
+    font-weight: bold;
+}
+
+.admin-main-content table tbody tr:nth-child(even) {
+    background-color: #f9f9f9; /* Alternate row color */
+}
+
+.admin-main-content table tbody tr:hover {
+    background-color: #e9e9e9; /* Hover effect */
+}
+
+.admin-main-content table .btn-sm {
+    padding: 5px 10px;
+    font-size: 0.8rem;
+}
+
+/* Product image in table */
+.admin-main-content table td img {
+    max-width: 50px;
+    height: auto;
+    border-radius: 5px;
+}
+
+/* Card Styles for Overview */
+.admin-main-content .card {
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    border: none;
+}
+
+.admin-main-content .card-title {
+    color: #555;
+    font-size: 1.1rem;
+}
+
+.admin-main-content .card-text {
+    color: #007bff; /* Bootstrap primary blue */
+}
+
+@media (max-width: 576px) {
+    .admin-main-content .col-md-6 {
+        flex: 0 0 100%;
+        max-width: 100%;
+        margin-bottom: 15px;
+    }
+}
+
+/* Styles for Admin Login Page */
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f8f9fa; /* Light grey background */
+}
+
+.login-container {
+    background-color: #ffffff; /* White background */
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    width: 100%;
+    max-width: 400px; /* Max width for the form */
+}
+
+.login-container h2 {
+    margin-bottom: 20px;
+    text-align: center;
+    color: #333; /* Dark grey text */
+}
+
+.form-label {
+    font-weight: bold;
+}
+
+.btn-primary {
+    background-color: #007bff; /* Bootstrap primary blue */
+    border-color: #007bff;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #004085;
+}
+
+/* Styles for Admin Signup Page (similar to login) */
+.signup-container {
+    background-color: #ffffff; /* White background */
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    width: 100%;
+    max-width: 450px; /* Slightly wider for signup */
+}
+
+.signup-container h2 {
+    margin-bottom: 20px;
+    text-align: center;
+    color: #333; /* Dark grey text */
+}
+
+.signup-container .form-label {
+     font-weight: bold;
+}
+
+.signup-container .btn-primary {
+    background-color: #28a745; /* Bootstrap success green */
+    border-color: #28a745;
+}
+
+.signup-container .btn-primary:hover {
+    background-color: #218838;
+    border-color: #1e7e34;
+}
+
+.signup-container .alert {
+    margin-top: 15px;
+} 

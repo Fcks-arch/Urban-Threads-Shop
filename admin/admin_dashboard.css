@@ -1,0 +1,318 @@
+/* Admin Dashboard Styles */
+
+body {
+    font-family: 'Poppins', Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f7f6; /* Light background */
+    color: #333;
+    display: flex; /* Use flexbox for the main layout */
+}
+
+.sidebar {
+    width: 250px; /* Fixed width for the sidebar */
+    background-color: #2c3e50; /* Darker background for sidebar */
+    color: white; /* White text */
+    padding: 20px; /* Padding inside sidebar */
+    flex-shrink: 0; /* Prevent sidebar from shrinking */
+    height: 100vh; /* Full viewport height */
+    position: fixed; /* Fixed position */
+    top: 0;
+    left: 0;
+    overflow-y: auto; /* Enable scrolling if content overflows */
+}
+
+.sidebar .logo {
+    text-align: center;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #34495e; /* Separator line */
+}
+
+.sidebar .logo h1 {
+    font-size: 28px; /* Larger logo font */
+    color: white;
+    margin: 0;
+}
+
+.sidebar nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar nav ul li {
+    margin-bottom: 10px;
+}
+
+.sidebar nav ul li a {
+    color: #bdc3c7; /* Lighter text color for links */
+    text-decoration: none;
+    font-size: 16px;
+    padding: 10px; /* Added padding for better click area and spacing */
+    display: block; /* Make the whole area clickable */
+    transition: color 0.3s ease;
+    border-radius: 4px; /* Consistent border radius */
+}
+
+.sidebar nav ul li a:hover,
+.sidebar nav ul li a.active {
+    color: white; /* White on hover or active */
+    background-color: #34495e; /* Subtle background on hover/active */
+}
+
+.main-content {
+    flex-grow: 1; /* Main content takes remaining space */
+    padding: 30px; /* Increased padding for more space around content */
+    max-width: 1200px; /* Limit max width on large screens */
+    margin: 20px auto 20px 270px; /* Add margin to the left (beyond sidebar width), top, bottom, and center horizontally */
+}
+
+.dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px; /* Space below header */
+    padding-bottom: 15px;
+    border-bottom: 1px solid #eee;
+}
+
+.dashboard-header h2 {
+    font-size: 28px; /* Slightly larger dashboard title */
+    color: #333;
+    margin: 0;
+}
+
+.search-bar {
+    width: 300px; /* Width for the search bar */
+    padding: 12px; /* Increased padding */
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+/* Summary Stats */
+.summary-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Responsive grid */
+    gap: 20px; /* Space between stat boxes */
+    margin-bottom: 30px; /* Space below summary */
+}
+
+.stat-box {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.stat-box h4 {
+    font-size: 16px;
+    color: #555;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+}
+
+.stat-box p {
+    font-size: 24px; /* Larger number */
+    font-weight: 700;
+    color: #333;
+    margin: 0;
+}
+
+/* Table styles */
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 3px rgba(0,0,0,0.1);
+    overflow: hidden; /* Rounds the corners */
+    border-radius: 5px;
+}
+
+.data-table th,
+.data-table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd; /* Light grey border */
+}
+
+.data-table th {
+    background-color: #f2f2f2; /* Light grey background for headers */
+    color: #333; /* Darker text */
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 0.9em;
+}
+
+.data-table tbody tr:hover {
+    background-color: #f5f5f5; /* Highlight row on hover */
+}
+
+/* Style for images within the table */
+.data-table img {
+    max-width: 80px; /* Set a maximum width */
+    max-height: 80px; /* Set a maximum height */
+    object-fit: cover; /* Crop image to cover the area while maintaining aspect ratio */
+    border-radius: 4px; /* Optional: add some rounded corners */
+    vertical-align: middle; /* Align image nicely in the cell */
+}
+
+/* Style for action links/buttons */
+.data-table .actions a {
+    display: inline-block;
+    padding: 5px 10px;
+    margin-right: 5px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-size: 0.9em;
+    transition: background-color 0.3s ease;
+}
+
+.data-table .actions .edit-user,
+.data-table .actions .edit-product,
+.data-table .actions .edit-admin,
+.data-table .actions .edit-order,
+.data-table .actions .update-order { /* Adding update-order class for consistency */
+    background-color: #007bff; /* Bootstrap primary blue */
+    color: white;
+}
+
+.data-table .actions .edit-user:hover,
+.data-table .actions .edit-product:hover,
+.data-table .actions .edit-admin:hover,
+.data-table .actions .edit-order:hover,
+.data-table .actions .update-order:hover {
+    background-color: #0056b3;
+}
+
+.data-table .actions .delete-user,
+.data-table .actions .delete-product,
+.data-table .actions .delete-admin,
+.data-table .actions .delete-order {
+    background-color: #dc3545; /* Bootstrap danger red */
+    color: white;
+}
+
+.data-table .actions .delete-user:hover,
+.data-table .actions .delete-product:hover,
+.data-table .actions .delete-admin:hover,
+.data-table .actions .delete-order:hover {
+    background-color: #c82333;
+}
+
+.data-table .actions .approve-order {
+    background-color: #28a745; /* Bootstrap success green */
+    color: white;
+}
+
+.data-table .actions .approve-order:hover {
+    background-color: #218838;
+}
+
+/* Style for the '+ Add New' buttons */
+.add-new-button {
+    display: inline-block;
+    margin-left: 15px;
+    padding: 8px 15px;
+    background-color: #6c757d; /* Bootstrap secondary grey */
+    color: white;
+    border-radius: 4px;
+    text-decoration: none;
+    font-size: 0.9em;
+    transition: background-color 0.3s ease;
+}
+
+.add-new-button:hover {
+    background-color: #5a6268;
+}
+
+/* Section separation */
+.dashboard-section {
+    margin-bottom: 40px; /* Space between sections */
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.dashboard-section h3 {
+    font-size: 20px;
+    color: #333;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+/* Form Styles for Update Pages */
+.form-container {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 30px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.form-container h2 {
+    text-align: center;
+    margin-bottom: 25px;
+    color: #333;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #555;
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="password"],
+.form-group input[type="number"], /* Added for product stock/price */
+.form-group textarea { /* Added for product description */
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box; /* Include padding and border in element's total width and height */
+    font-size: 16px;
+}
+
+/* Style for the submit button */
+.form-group input[type="submit"],
+.form-group button[type="submit"] { /* Also style button[type="submit"] if used */
+    background-color: #007bff; /* Primary blue */
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 18px;
+    transition: background-color 0.3s ease;
+}
+
+.form-group input[type="submit"]:hover,
+.form-group button[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+/* Styles for messages */
+.message {
+    color: green;
+    text-align: center;
+    margin-bottom: 15px;
+    font-weight: bold;
+}
+
+.error {
+    color: red;
+    text-align: center;
+    margin-bottom: 15px;
+    font-weight: bold;
+} 

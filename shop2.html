@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Urban Threads - Shop</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="//code.tidio.co/mddr2wugyf0qkjqg9gqbjsxum9ouirjq.js" async></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-container">
+            <div class="logo">
+                <h1>URBAN THREADS</h1>
+            </div>
+            
+            <div class="search-container">
+                <input type="text" id="searchBar" placeholder="Search products..." autocomplete="off">
+                <button class="search-btn">
+                    <i class="fas fa-search"></i>
+                </button>
+                <div class="search-suggestions" id="searchSuggestions"></div>
+            </div>
+
+            <div class="hamburger-lines">
+                <div class="line"></div>
+                <div class="line"></div>
+                <div class="line"></div>
+            </div>
+
+            <ul class="menu-items">
+                <li><a href="home.html">Home</a></li>
+                <li><a href="#">Shop</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="home.html">Logout</a></li>
+                
+                <!-- User Profile Icon and Dropdown -->
+                <li class="user-profile-item">
+                    <div class="user-icon" onclick="toggleUserDropdown(event)">
+                         <img src="images/default-user-icon.png" alt="User Icon">
+                    </div>
+                    <ul class="user-dropdown">
+                        <li><a href="user_profile.html"><i class="fas fa-user"></i> My Profile</a></li>
+                        <li><a href="trackorder.html"><i class="fas fa-truck"></i> Track Order</a></li>
+                        <li><a href="logout.php"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+                    </ul>
+                </li>
+                
+                <li>
+                    <div class="cart-icon" onclick="toggleCart()">
+                        <i class="fa-solid fa-cart-shopping"></i>
+                        <span id="cart-count">0</span>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Cart Modal -->
+    <div class="cart-modal" id="cart-modal">
+        <div class="cart-content">
+            <div class="cart-header">
+                <h2>Shopping Cart</h2>
+                <span class="close" onclick="toggleCart()">&times;</span>
+            </div>
+            <div class="cart-items-header">
+                <span>Select</span>
+                <span>Item</span>
+                <span>Price</span>
+                <span>Quantity</span>
+                <span>Edit</span>
+            </div>
+            <div id="cart-items">
+                <!-- Cart items will be dynamically added here -->
+            </div>
+            <div class="cart-footer">
+                <div class="cart-total">
+                    <span>Subtotal:</span>
+                    <span class="cart-total-amount">₱<span id="cart-total">0.00</span></span>
+                </div>
+                <div class="cart-actions">
+                    <button class="clear-cart" onclick="clearCart()">Clear Cart</button>
+                    <button class="checkout-btn" onclick="requestCheckout()">Request Checkout</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Collections Section -->
+    <section id="collection">
+        <div class="collections container">
+            <div class="content">
+                <video autoplay muted loop class="video-bg">
+                    <source src="images/bg.mp4" type="video/mp4" />
+                </video>
+                <div class="img-content">
+                    <p>Long Sleeve Collections</p>
+                    <button><a href="sweatshirt.html">SHOP NOW</a></button>
+                </div>
+            </div>
+            <div class="content2">
+                <video autoplay muted loop class="video-bg">
+                    <source src="images/t-shirt.mp4" type="video/mp4" />
+                </video>
+                <div class="img-content2">
+                    <p>T-Shirts Collection</p>
+                    <button><a href="#sellers">SHOP NOW</a></button>
+                </div>
+            </div>
+            <div class="content3">
+                <video autoplay muted loop class="video-bg">
+                    <source src="images/hoodie.mp4" type="video/mp4" />
+                </video>
+                <div class="img-content3">
+                    <p>Hoodie Collections</p>
+                    <button><a href="#sellers">SHOP NOW</a></button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section id="sellers">
+        <div class="seller container">
+            <h2>Top Sales</h2>
+            <div class="best-seller">
+                <div class="best-p1" data-product-id="1">
+                    <img src="images/UT5.gif" alt="Product Image">
+                    <div class="name-of-p">
+                        <p>Arms of Inspiration Blk Unisex Heavy Blend™ Crewneck Sweatshirt</p>
+                    </div>
+                    <div class="price">
+                        <p>₱1000.00</p>
+                    </div>
+                    <div class="buy-now">
+                        <button onclick="buyDirect(1, 'Arms of Inspiration Blk Unisex Heavy Blend™ Crewneck Sweatshirt', 1000.00, 'images/UT5.gif')" class="buy-direct">Buy Direct</button>
+                        <button onclick="addToCart(1, 'Arms of Inspiration Blk Unisex Heavy Blend™ Crewneck Sweatshirt', 1000.00)" class="add-to-cart">Add to Cart</button>
+                    </div>
+                </div>
+                <div class="best-p1" data-product-id="2">
+                    <img src="images/UT6.gif" alt="Product Image">
+                    <div class="name-of-p">
+                        <p>Inspired By JH - Goat Unisex Heavy Blend™ Crewneck Sweatshirt</p>
+                    </div>
+                    <div class="price">
+                        <p>₱1200.00</p>
+                    </div>
+                    <div class="buy-now">
+                        <button onclick="buyNow(2, 'Inspired By JH - Goat Unisex Heavy Blend™ Crewneck Sweatshirt', 1200.00)">Buy Now</button>
+                        <button class="add-to-cart" onclick="addToCart(2, 'Inspired By JH - Goat Unisex Heavy Blend™ Crewneck Sweatshirt', 1200.00)">Add to Cart</button>
+                    </div>
+                </div>
+                <div class="best-p1" data-product-id="3">
+                    <img src="images/UT7.gif" alt="Product Image">
+                    <div class="name-of-p">
+                        <p>Calm in the Chaos Unisex Heavy Blend™ Crewneck Sweatshirt</p>
+                    </div>
+                    <div class="price">
+                        <p>₱1300.00</p>
+                    </div>
+                    <div class="buy-now">
+                        <button onclick="buyNow(3, 'Calm in the Chaos Unisex Heavy Blend™ Crewneck Sweatshirt', 1300.00)">Buy Now</button>
+                        <button class="add-to-cart" onclick="addToCart(3, 'Calm in the Chaos Unisex Heavy Blend™ Crewneck Sweatshirt', 1300.00)">Add to Cart</button>
+                    </div>
+                </div>
+                <div class="best-p1" data-product-id="4">
+                    <img src="images/UT8.gif" alt="Product Image">
+                    <div class="name-of-p">
+                        <p>Sink or Swim Unisex Heavy Blend™ Crewneck Sweatshirt</p>
+                    </div>
+                    <div class="price">
+                        <p>₱1500.00</p>
+                    </div>
+                    <div class="buy-now">
+                        <button onclick="buyNow(4, 'Sink or Swim Unisex Heavy Blend™ Crewneck Sweatshirt', 1500.00)">Buy Now</button>
+                        <button class="add-to-cart" onclick="addToCart(4, 'Sink or Swim Unisex Heavy Blend™ Crewneck Sweatshirt', 1500.00)">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="seller container">
+            <h2>New Arrivals</h2>
+            <div class="best-seller">
+                <div class="best-p1" data-product-id="5">
+                    <img src="images/tee.gif" alt="Product Image">
+                    <div class="name-of-p">
+                        <p>The Goat KB Unisex Heavy Cotton Tee</p>
+                    </div>
+                    <div class="price">
+                        <p>₱700.00</p>
+                    </div>
+                    <div class="buy-now">
+                        <button onclick="buyNow(5, 'The Goat KB Unisex Heavy Cotton Tee', 700.00)">Buy Now</button>
+                        <button class="add-to-cart" onclick="addToCart(5, 'The Goat KB Unisex Heavy Cotton Tee', 700.00)">Add to Cart</button>
+                    </div>
+                </div>
+                <div class="best-p1" data-product-id="6">
+                    <img src="images/tee1.jpg" alt="Product Image">
+                    <div class="name-of-p">
+                        <p>Believe Unisex Heavy Cotton Tee</p>
+                    </div>
+                    <div class="price">
+                        <p>₱450.00</p>
+                    </div>
+                    <div class="buy-now">
+                        <button onclick="buyNow(6, 'Believe Unisex Heavy Cotton Tee', 450.00)">Buy Now</button>
+                        <button class="add-to-cart" onclick="addToCart(6, 'Believe Unisex Heavy Cotton Tee', 450.00)">Add to Cart</button>
+                    </div>
+                </div>
+                <div class="best-p1" data-product-id="7">
+                    <img src="images/tee3.jpg" alt="Product Image">
+                    <div class="name-of-p">
+                        <p>Jimi Endrix</p>
+                    </div>
+                    <div class="price">
+                        <p>₱500.00</p>
+                    </div>
+                    <div class="buy-now">
+                        <button onclick="buyNow(7, 'Jimi Endrix', 500.00)">Buy Now</button>
+                        <button class="add-to-cart" onclick="addToCart(7, 'Jimi Endrix', 500.00)">Add to Cart</button>
+                    </div>
+                </div>
+                <div class="best-p1" data-product-id="8">
+                    <img src="images/tee4.jpg" alt="Product Image">
+                    <div class="name-of-p">
+                        <p>Special Edition Unisex Heavy Cotton Tee</p>
+                    </div>
+                    <div class="price">
+                        <p>₱900.00</p>
+                    </div>
+                    <div class="buy-now">
+                        <button onclick="buyNow(8, 'Special Edition Unisex Heavy Cotton Tee', 900.00)">Buy Now</button>
+                        <button class="add-to-cart" onclick="addToCart(8, 'Special Edition Unisex Heavy Cotton Tee', 900.00)">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="seller container">
+            <h2>Hot Sales</h2>
+            <div class="best-seller">
+                <div class="best-p1" data-product-id="9">
+                    <img src="images/UT9.gif" alt="Product Image">
+                    <div class="name-of-p">
+                        <p>You've Got To Show Me Love Unisex Heavy Blend™ Hooded Sweatshirt</p>
+                    </div>
+                    <div class="price">
+                        <p>₱1500.00</p>
+                    </div>
+                    <div class="button-container">
+                        <button class="buy-now" onclick="buyNow(9, 'You\'ve Got To Show Me Love Unisex Heavy Blend™ Hooded Sweatshirt', 1500.00)">BUY NOW</button>
+                        <button class="add-to-cart" onclick="addToCart(9, 'You\'ve Got To Show Me Love Unisex Heavy Blend™ Hooded Sweatshirt', 1500.00)">ADD TO CART</button>
+                    </div>
+                </div>
+                <div class="best-p1" data-product-id="10">
+                    <img src="images/hoodie3.jpg" alt="Product Image">
+                    <div class="name-of-p">
+                        <p>Ain't No Love In The Jungle White Unisex Heavy Blend™ Hooded Sweatshirt</p>
+                    </div>
+                    <div class="price">
+                        <p>₱3000.00</p>
+                    </div>
+                    <div class="button-container">
+                        <button class="buy-now" onclick="buyNow(10, 'Ain\'t No Love In The Jungle White Unisex Heavy Blend™ Hooded Sweatshirt', 3000.00)">BUY NOW</button>
+                        <button class="add-to-cart" onclick="addToCart(10, 'Ain\'t No Love In The Jungle White Unisex Heavy Blend™ Hooded Sweatshirt', 3000.00)">ADD TO CART</button>
+                    </div>
+                </div>
+                <div class="best-p1" data-product-id="11">
+                    <img src="images/hoodie2.jpg" alt="Product Image">
+                    <div class="name-of-p">
+                        <p>It's Crystal Clear To Me White Unisex Heavy Blend™ Hooded Sweatshirt</p>
+                    </div>
+                    <div class="price">
+                        <p>₱2500.00</p>
+                    </div>
+                    <div class="button-container">
+                        <button class="buy-now" onclick="buyNow(11, 'It\'s Crystal Clear To Me White Unisex Heavy Blend™ Hooded Sweatshirt', 2500.00)">BUY NOW</button>
+                        <button class="add-to-cart" onclick="addToCart(11, 'It\'s Crystal Clear To Me White Unisex Heavy Blend™ Hooded Sweatshirt', 2500.00)">ADD TO CART</button>
+                    </div>
+                </div>
+                <div class="best-p1" data-product-id="12">
+                    <img src="images/hoodie1.jpg" alt="Product Image">
+                    <div class="name-of-p">
+                        <p>Everybody Leave Me Alone White Unisex Heavy Blend™ Hooded Sweatshirt</p>
+                    </div>
+                    <div class="price">
+                        <p>₱2000.00</p>
+                    </div>
+                    <div class="button-container">
+                        <button class="buy-now" onclick="buyNow(12, 'Everybody Leave Me Alone White Unisex Heavy Blend™ Hooded Sweatshirt', 2000.00)">BUY NOW</button>
+                        <button class="add-to-cart" onclick="addToCart(12, 'Everybody Leave Me Alone White Unisex Heavy Blend™ Hooded Sweatshirt', 2000.00)">ADD TO CART</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+    // Ensure variables are declared only once at the top of the script.
+    let cart = [];
+
+    // Mobile menu toggle
+    const hamburger = document.querySelector('.hamburger-lines');
+    const menuItems = document.querySelector('.menu-items');
+
+    hamburger.addEventListener('click', () => {
+        menuItems.classList.toggle('active');
+    });
+
+    // Search functionality
+    const searchBar = document.getElementById('searchBar');
+    const searchSuggestions = document.getElementById('searchSuggestions');
+
+    function filterProducts(searchTerm) {
+        const products = document.querySelectorAll('.best-p1');
+        const results = [];
+        products.forEach(product => {
+            const name = product.querySelector('.name-of-p').textContent.toLowerCase();
+            if (searchTerm && name.includes(searchTerm) && product.querySelector('img') && product.querySelector('img').src) {
+                results.push({
+                    name: product.querySelector('.name-of-p').textContent,
+                    price: product.querySelector('.price').textContent,
+                    element: product
+                });
+            }
+        });
+        return results;
+    }
+
+    searchBar.addEventListener('input', function(e) {
+        const searchTerm = e.target.value.toLowerCase();
+        if (searchTerm.length < 2) {
+            searchSuggestions.classList.remove('active');
+            return;
+        }
+
+        const filteredProducts = filterProducts(searchTerm);
+        updateSearchSuggestions(filteredProducts);
+    });
+
+    function updateSearchSuggestions(results) {
+        const searchSuggestions = document.getElementById('searchSuggestions');
+        searchSuggestions.innerHTML = '';
+
+        if (results.length > 0) {
+            results.forEach(result => {
+                const suggestionItem = document.createElement('div');
+                suggestionItem.className = 'suggestion-item';
+
+                const imgElement = document.createElement('img');
+                imgElement.src = result.element.querySelector('img').src;
+                imgElement.alt = result.name;
+                suggestionItem.appendChild(imgElement);
+
+                const contentDiv = document.createElement('div');
+                contentDiv.className = 'result-content';
+
+                const nameDiv = document.createElement('div');
+                nameDiv.className = 'result-name';
+                nameDiv.textContent = result.name;
+                contentDiv.appendChild(nameDiv);
+
+                const priceDiv = document.createElement('div');
+                priceDiv.className = 'result-price';
+                priceDiv.textContent = result.price;
+                contentDiv.appendChild(priceDiv);
+
+                suggestionItem.appendChild(contentDiv);
+
+                suggestionItem.addEventListener('click', () => {
+                    document.getElementById('searchBar').value = result.name;
+                    searchSuggestions.classList.remove('active');
+                    scrollToProduct(result.element);
+                });
+
+                searchSuggestions.appendChild(suggestionItem);
+            });
+            searchSuggestions.classList.add('active');
+        } else if (document.getElementById('searchBar').value.length > 0) {
+            const noResultsItem = document.createElement('div');
+            noResultsItem.className = 'suggestion-item';
+            noResultsItem.textContent = 'No products found';
+            searchSuggestions.appendChild(noResultsItem);
+            searchSuggestions.classList.add('active');
+        } else {
+            searchSuggestions.classList.remove('active');
+        }
+    }
+
+    function scrollToProduct(productElement) {
+        document.querySelectorAll('.best-p1').forEach(p => p.style.animation = '');
+        if (productElement) {
+            productElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            productElement.style.animation = 'highlight 2s ease-in-out';
+            setTimeout(() => {
+                productElement.style.animation = '';
+            }, 2000);
+        }
+    }
+
+    document.querySelector('.search-btn').addEventListener('click', function() {
+        const searchTerm = document.getElementById('searchBar').value.toLowerCase();
+        const filteredResults = filterProducts(searchTerm);
+        if (filteredResults.length > 0) {
+            scrollToProduct(filteredResults[0].element);
+            document.getElementById('searchSuggestions').classList.remove('active');
+        } else {
+            showNotification('No products found matching your search.', 'error');
+            document.getElementById('searchSuggestions').classList.remove('active');
+        }
+    });
+
+    document.addEventListener('click', function(event) {
+        const searchContainer = document.querySelector('.search-container');
+        if (!searchContainer.contains(event.target)) {
+            document.getElementById('searchSuggestions').classList.remove('active');
+        }
+    });
+
+    function showNotification(message, type = 'success') {
+        const notification = document.createElement('div');
+        notification.className = 'notification';
+        notification.innerHTML = message;
+
+        if (type === 'error') {
+            notification.style.background = 'rgba(255, 68, 68, 0.9)';
+        } else {
+            notification.style.background = 'rgba(255, 60, 120, 0.9)';
+        }
+
+        document.body.appendChild(notification);
+        notification.offsetHeight;
+        notification.classList.add('active');
+
+        setTimeout(() => {
+            notification.classList.remove('active');
+            setTimeout(() => {
+                notification.remove();
+            }, 300);
+        }, 2000);
+    }
+
+    function addToCart(productId, productName, price) {
+        const formData = new URLSearchParams();
+        formData.append('product_id', productId);
+        formData.append('product_name', productName);
+        formData.append('price', price);
+
+        fetch('addtocart.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: formData.toString(),
+            credentials: 'include'   // 🔑 send cookies
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 'success') {
+                showNotification(`${productName} added to cart`);
+                updateCartCount();
+                loadCart();
+            } else {
+                if (data.message === 'Please login first') {
+                    showNotification('Please login to add items to cart', 'error');
+                    setTimeout(() => {
+                        window.location.href = 'signin.html';
+                    }, 2000);
+                } else {
+                    showNotification(data.message || 'Error adding to cart', 'error');
+                }
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            showNotification('Error connecting to server. Please try again.', 'error');
+        });
+    }
+
+    function buyNow(productId, productName, price) {
+        addToCart(productId, productName, price);
+        showNotification('Product added to cart! Redirecting to checkout...', 'success');
+        setTimeout(() => {
+            window.location.href = 'checkout.html';
+        }, 1500);
+    }
+
+    function buyDirect(productId, productName, price, imageUrl = 'images/default-product.jpg') {
+        const checkoutUrl = `checkout.html?product_id=${productId}&product_name=${encodeURIComponent(productName)}&price=${price}&quantity=1&image_url=${encodeURIComponent(imageUrl)}`;
+        window.location.href = checkoutUrl;
+    }
+
+    function updateCartCount() {
+        fetch('countcart.php', { credentials: 'include' })
+            .then(response => response.json())
+            .then(data => {
+                if (data.count !== undefined) {
+                    document.getElementById('cart-count').textContent = data.count;
+                }
+            })
+            .catch(error => {
+                console.error('Error updating cart count:', error);
+            });
+    }
+
+    function loadCart() {
+        fetch('fetchcart.php', { credentials: 'include' })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    const cartItemsContainer = document.getElementById('cart-items');
+                    if (!data.items || data.items.length === 0) {
+                        cartItemsContainer.innerHTML = '<p class="empty-cart-message">Your cart is empty</p>';
+                        document.getElementById('cart-total').textContent = '0.00';
+                        return;
+                    }
+
+                    cartItemsContainer.innerHTML = data.items.map(item => `
+                        <div class="cart-item">
+                            <input type="checkbox" class="cart-item-select" data-cart-id="${item.id}">
+                            <img src="${item.image_url}" alt="${item.product_name}" class="cart-item-image">
+                            <div class="cart-item-details">
+                                <div class="cart-item-name">${item.product_name}</div>
+                                <div class="cart-item-price">₱${parseFloat(item.price).toFixed(2)}</div>
+                            </div>
+                            <div class="quantity-controls">
+                                <button onclick="updateQuantity(${item.id}, -1)">-</button>
+                                <span>${item.quantity}</span>
+                                <button onclick="updateQuantity(${item.id}, 1)">+</button>
+                            </div>
+                            <button class="remove-btn" onclick="removeFromCart(${item.id})">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    `).join('');
+
+                    document.getElementById('cart-total').textContent = parseFloat(data.total).toFixed(2);
+                }
+            })
+            .catch(error => {
+                console.error('Error loading cart:', error);
+                showNotification('Error loading cart. Please try again.', 'error');
+            });
+    }
+
+    function removeFromCart(cartId) {
+        fetch('removefromcart.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: `cart_id=${cartId}`,
+            credentials: 'include'
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 'success') {
+                showNotification('Item removed from cart', 'error');
+                loadCart();
+                updateCartCount();
+            } else {
+                showNotification(data.message || 'Error removing item from cart', 'error');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            showNotification('Error connecting to server', 'error');
+        });
+    }
+
+    function updateQuantity(cartId, change) {
+        fetch('updatequantity.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: `cart_id=${cartId}&change=${change}`,
+            credentials: 'include'
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 'success') {
+                loadCart();
+                updateCartCount();
+            } else {
+                showNotification(data.message || 'Error updating quantity', 'error');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            showNotification('Error connecting to server', 'error');
+        });
+    }
+
+    function clearCart() {
+        if (confirm('Are you sure you want to clear your cart?')) {
+            fetch('clearcart.php', {
+                method: 'POST',
+                credentials: 'include'
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    showNotification('Cart cleared', 'error');
+                    loadCart();
+                    updateCartCount();
+                } else {
+                    showNotification(data.message || 'Error clearing cart', 'error');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                showNotification('Error connecting to server', 'error');
+            });
+        }
+    }
+
+    function requestCheckout() {
+        const selectedItems = document.querySelectorAll('.cart-item-select:checked');
+        if (selectedItems.length === 0) {
+            showNotification('Please select at least one item to checkout.', 'error');
+            return;
+        }
+
+        const selectedCartIds = Array.from(selectedItems).map(item => item.dataset.cartId);
+
+        fetch('request_checkout.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ cart_ids: selectedCartIds }),
+            credentials: 'include'
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 'success') {
+                showNotification('Checkout request submitted! Waiting for admin approval.');
+                loadCart();
+                toggleCart();
+            } else {
+                showNotification(data.message || 'Error submitting checkout request', 'error');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            showNotification('An error occurred while requesting checkout.', 'error');
+        });
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        loadCart();
+        updateCartCount();
+        checkLoginStatus();
+    });
+
+    function checkLoginStatus() {
+        fetch('check_login.php', { credentials: 'include' })
+            .then(response => response.json())
+            .then(data => {
+                // handle login status if needed
+            })
+            .catch(error => {
+                console.error('Error checking login status:', error);
+            });
+    }
+
+    function toggleCart() {
+        const cartModal = document.querySelector('.cart-modal');
+        cartModal.classList.toggle('active');
+    }
+
+    function toggleUserDropdown(event) {
+        event.stopPropagation();
+        const userDropdown = document.querySelector('.user-dropdown');
+        userDropdown.classList.toggle('active');
+    }
+
+    document.addEventListener('click', function(event) {
+        const userProfileItem = document.querySelector('.user-profile-item');
+        if (!userProfileItem.contains(event.target)) {
+            const userDropdown = document.querySelector('.user-dropdown');
+            if (userDropdown.classList.contains('active')) {
+                userDropdown.classList.remove('active');
+            }
+        }
+    });
+
+    $(document).ajaxError(function() {
+        showNotification('Error connecting to server. Please try again.', 'error');
+    });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,106 @@
+body {
+    background: url('rhey.jpg') no-repeat center center fixed;
+    background-size: cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+.login-box {
+    background-color: white;
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+    border-radius: 0.5rem;
+    display: flex;
+    max-width: 64rem;
+    width: 100%;
+}
+
+.login-box .left, .login-box .right {
+    padding: 2rem;
+}
+
+.login-box .left {
+    width: 50%;
+}
+
+.login-box .right {
+    width: 50%;
+    background: linear-gradient(to right, #4a4a4a, #7a7a7a);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-top-right-radius: 0.5rem;
+    border-bottom-right-radius: 0.5rem;
+}
+
+.login-box h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+}
+
+.login-box form {
+    width: 100%;
+}
+
+.login-box label {
+    display: block;
+    color: #4a5568;
+    font-size: 0.875rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.login-box input[type="text"], .login-box input[type="password"] {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #e2e8f0;
+    border-radius: 0.25rem;
+    margin-bottom: 1rem;
+    font-size: 1rem;
+    color: #4a5568;
+}
+
+.login-box input[type="checkbox"] {
+    margin-right: 0.5rem;
+}
+
+.login-box .remember-me {
+    display: flex;
+    align-items: center;
+    font-size: 0.875rem;
+    color: #4a4a4a;
+}
+
+.login-box button {
+    background: linear-gradient(to right, #4a4a4a, #7a7a7a);
+    color: white;
+    font-weight: 700;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 9999px;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+.login-box button:hover {
+    background: linear-gradient(to right, #3a3a3a, #6a6a6a);
+}
+
+.login-box .right a {
+    background-color: white;
+    color: #4a4a4a;
+    font-weight: 700;
+    padding: 0.5rem 1rem;
+    border-radius: 9999px;
+    text-decoration: none;
+}
+
+.login-box .right a:hover {
+    background-color: #f7f7f7;
+}
