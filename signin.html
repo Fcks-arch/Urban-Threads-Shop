@@ -321,13 +321,15 @@
             
             fetch('signin.php', {
                 method: 'POST',
-                body: formData
+                body: formData,
+                credentials: 'include'
             })
             .then(response => response.json())
             .then(data => {
                 submitBtn.classList.remove('loading');
                 if (data.status === 'success') {
-                    window.location.href = 'home.html';
+                    const target = data.redirect || 'shop2.html';
+                    window.location.href = target;
                 } else {
                     const errorMessage = document.getElementById('error-message');
                     errorMessage.textContent = data.message || 'Invalid email or password';

@@ -27,9 +27,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             if ($user && password_verify($password, $user['password_hash'])) {
                 // Login successful, set session variables
+                session_regenerate_id(true);
                 $_SESSION['user_id'] = $user['id'];
                 $_SESSION['username'] = $user['full_name']; // Use full_name for username in session
                 $_SESSION['is_admin'] = false; // Assume all users in this table are not admins by default
+
+                // Ensure session cookie is set with proper attributes
+                $secure = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off');
+                $cookie_lifetime = 60 * 60 * 24 * 7; // 7 days
+                if (PHP_VERSION_ID >= 70300) {
+                    setcookie(session_name(), session_id(), [
+                        'expires' => time() + $cookie_lifetime,
+                        'path' => '/',
+                        'secure' => $secure,
+                        'httponly' => true,
+                        'samesite' => 'Lax',
+                    ]);
+                } else {
+                    // Fallback without SameSite for older PHP
+                    setcookie(session_name(), session_id(), time() + $cookie_lifetime, '/');
+                }
 
                 $response = [
                     'status' => 'success',
