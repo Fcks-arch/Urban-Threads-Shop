@@ -34,7 +34,7 @@
                 <li><a href="home.html">Home</a></li>
                 <li><a href="#">Shop</a></li>
                 <li><a href="contact.html">Contact</a></li>
-                <li><a href="home.html">Logout</a></li>
+                <li><a href="logout.php">Logout</a></li>
                 
                 <!-- User Profile Icon and Dropdown -->
                 <li class="user-profile-item">
@@ -449,13 +449,13 @@
         formData.append('product_name', productName);
         formData.append('price', price);
 
-        fetch('addtocart.php', {
+        return fetch('addtocart.php', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',
             },
             body: formData.toString(),
-            credentials: 'include'   // 🔑 send cookies
+            credentials: 'include'
         })
         .then(response => response.json())
         .then(data => {
@@ -463,29 +463,44 @@
                 showNotification(`${productName} added to cart`);
                 updateCartCount();
                 loadCart();
+                return { ok: true };
             } else {
                 if (data.message === 'Please login first') {
-                    showNotification('Please login to add items to cart', 'error');
-                    setTimeout(() => {
-                        window.location.href = 'signin.html';
-                    }, 2000);
-                } else {
-                    showNotification(data.message || 'Error adding to cart', 'error');
+                    return { ok: false, reason: 'not_logged_in' };
                 }
+                showNotification(data.message || 'Error adding to cart', 'error');
+                return { ok: false };
             }
         })
         .catch(error => {
             console.error('Error:', error);
             showNotification('Error connecting to server. Please try again.', 'error');
+            return { ok: false };
         });
     }
 
-    function buyNow(productId, productName, price) {
-        addToCart(productId, productName, price);
-        showNotification('Product added to cart! Redirecting to checkout...', 'success');
-        setTimeout(() => {
-            window.location.href = 'checkout.html';
-        }, 1500);
+    async function buyNow(productId, productName, price) {
+        // Verify login first to avoid unnecessary redirect loops
+        try {
+            const loginResp = await fetch('check_login.php', { credentials: 'include' });
+            const loginData = await loginResp.json();
+            if (!loginData.logged_in) {
+                showNotification('Please login to continue', 'error');
+                setTimeout(() => { window.location.href = 'signin.html'; }, 1200);
+                return;
+            }
+        } catch (e) {
+            // If login check fails, still attempt addToCart which will respond accordingly
+        }
+
+        const result = await addToCart(productId, productName, price);
+        if (result && result.ok) {
+            showNotification('Product added to cart! Redirecting to checkout...', 'success');
+            setTimeout(() => { window.location.href = 'checkout.html'; }, 1000);
+        } else if (result && result.reason === 'not_logged_in') {
+            showNotification('Please login to add items to cart', 'error');
+            setTimeout(() => { window.location.href = 'signin.html'; }, 1200);
+        }
     }
 
     function buyDirect(productId, productName, price, imageUrl = 'images/default-product.jpg') {
